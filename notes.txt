@@ -1,0 +1,5 @@
+## In any page if you want tailwindcss
+npx tailwindcss -i src/main/resources/static/css/input.css -o src/main/resources/static/css/output.css --watch
+
+2. define output.css and input.css in your /resources/static/css folder
+3. if you want flowbite: include css and js using cdn
