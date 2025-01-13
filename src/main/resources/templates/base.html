@@ -9,13 +9,27 @@
 </head>
 <body>
     <!-- common header -->
-
+    <div>
+        <ul class="p-4">
+            <li>
+                <a th-href="@{'/home'}">Home</a>
+            </li>
+            <li>
+                <a th-href="@{'/services'}">Services</a>
+            </li>
+            <li>
+                <a th-href="@{'/about'}">About</a>
+            </li>
+        </ul>
+    </div>
     <!-- main dynamic content -->
-    <div class="">
+    <div class="text-center text-3xl p-4">
         <section data-th-replace="${content}"></section>
     </div>
 
     <!-- common footer -->
-    
+    <footer class="p-4">
+        Footer: Smart Contact Manager 2.0
+    </footer>
 </body>
 </html>
