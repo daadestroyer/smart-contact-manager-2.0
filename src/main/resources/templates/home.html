@@ -1,22 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-    <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
-  </head>
-  <body>
-    <div class=" bg-gray-200 w-1/2 p-4 mx-auto mt-4">
-      <h1 class="text-2 font-bold">Welcome to home page</h1>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime officia
-        neque, veniam quos accusamus delectus alias eius at a quas nam. Suscipit
-        porro ipsum molestias doloremque soluta ipsa, nobis magni?
-      </p>
-      
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title})}">
+<head>
+    <title>Home Page | Smart Contact Manager 2.0</title>
+</head>
+<body>
+    <div id="content">
+        <h1>Home Page</h1>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script> 
-  </body>
+</body>
 </html>

@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>About Page | Smart Contact Manager 2.0</title>
 </head>
 <body>
-    <h1>This is about page</h1>
-    <hr>
-    <!-- using fragment -->
-    <div th:insert="~{base :: parent('about one','about two')}">
-
+    <div id="content">
+        <h1>About Page</h1>
     </div>
 </body>
 </html>
