@@ -25,4 +25,12 @@ public class PageController {
     public String index(){
         return "index";
     }
+    @RequestMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
 }

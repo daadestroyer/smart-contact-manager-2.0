@@ -7,29 +7,19 @@
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
 </head>
-<body>
+<body  class="dark" >
     <!-- common header -->
-    <div>
-        <ul class="p-4">
-            <li>
-                <a th-href="@{'/home'}">Home</a>
-            </li>
-            <li>
-                <a th-href="@{'/services'}">Services</a>
-            </li>
-            <li>
-                <a th-href="@{'/about'}">About</a>
-            </li>
-        </ul>
+    <div th:replace="navbar :: navbar">
+
     </div>
     <!-- main dynamic content -->
-    <div class="text-center text-3xl p-4">
+    <div class="p-4 h-screen w-full dark:bg-gray-900">
         <section data-th-replace="${content}"></section>
     </div>
 
     <!-- common footer -->
-    <footer class="p-4">
-        Footer: Smart Contact Manager 2.0
-    </footer>
+    <div th:replace="footer :: footer">
+
+    </div>
 </body>
 </html>
