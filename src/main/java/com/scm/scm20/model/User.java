@@ -32,7 +32,7 @@ public class User {
     @Column(name="user_profile_pic"  )
     private String profilePicture;
     @Column(name="user_phone_number",nullable = false)
-    private String phoneNumber;
+    private String contact;
 
     // information
     private boolean enabled = false;
@@ -40,6 +40,7 @@ public class User {
     private boolean phoneVerified = false;
 
     // Provider details
+    @Enumerated
     private Providers provider = Providers.SELF;
     private String providerUserId;
 

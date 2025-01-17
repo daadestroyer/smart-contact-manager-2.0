@@ -1,11 +1,25 @@
 package com.scm.scm20.controller;
 
+import com.scm.scm20.forms.SignupForm;
+import com.scm.scm20.model.User;
+import com.scm.scm20.service.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class PageController {
     // controller which is used to serve thymeleaf pages
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public String home(){
@@ -34,7 +48,28 @@ public class PageController {
         return "login";
     }
     @RequestMapping("/signup")
-    public String signup(){
+    public String signup(Model model){
+        SignupForm signupForm = new SignupForm();
+      //  Setting default values from backend
+//        signupForm.setName("default name");
+//        signupForm.setAbout("enter about your self");
+        model.addAttribute("signupForm",signupForm);
         return "signup";
+    }
+
+    @RequestMapping(value = "/do-register",method = RequestMethod.POST)
+    public String processingRegistration(@ModelAttribute SignupForm signupForm){
+        System.out.println("Processing Registration");
+        // fetch the form data
+        System.out.println("---->"+signupForm);
+
+        // validate form data, otherwise send error message
+        User user = this.modelMapper.map(signupForm, User.class);
+        // save user
+        System.out.println("===>"+user);
+        this.userService.saveUser(user);
+
+        // redirect again
+        return "redirect:/signup";
     }
 }
