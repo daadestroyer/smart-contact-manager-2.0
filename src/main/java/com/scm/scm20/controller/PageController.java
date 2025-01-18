@@ -1,8 +1,11 @@
 package com.scm.scm20.controller;
 
 import com.scm.scm20.forms.SignupForm;
+import com.scm.scm20.helper.Message;
+import com.scm.scm20.helper.MessageType;
 import com.scm.scm20.model.User;
 import com.scm.scm20.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,16 +61,20 @@ public class PageController {
     }
 
     @RequestMapping(value = "/do-register",method = RequestMethod.POST)
-    public String processingRegistration(@ModelAttribute SignupForm signupForm){
+    public String processingRegistration(@ModelAttribute SignupForm signupForm, HttpSession session){
         System.out.println("Processing Registration");
         // fetch the form data
         System.out.println("---->"+signupForm);
 
         // validate form data, otherwise send error message
         User user = this.modelMapper.map(signupForm, User.class);
+
         // save user
-        System.out.println("===>"+user);
         this.userService.saveUser(user);
+
+        // return the message
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+        session.setAttribute("message",message);
 
         // redirect again
         return "redirect:/signup";

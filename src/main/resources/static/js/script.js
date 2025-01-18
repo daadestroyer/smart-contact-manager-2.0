@@ -61,3 +61,6 @@ function changePageTheme(theme, oldTheme) {
 }
 
 //change page change theme
+
+// Automatically dismiss the alert after 5 seconds
+

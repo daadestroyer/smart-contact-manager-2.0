@@ -21,13 +21,7 @@
                         Signup Here
                     </h5>
                     
-
-                    <div class="text-red-600 text-center my-3" th:if="${param.error}">
-                        Invalid name and password.
-                    </div>
-                    <div class="text-green-600 text-center my-3" th:if="${param.logout}">
-                        You have been logged out.
-                    </div>
+                    <div th:replace="message :: message-box">  </div>    
                 
 
 <form class="max-w-md mx-auto" data-th-action="@{/do-register}" method="POST" data-th-object="${signupForm}">
