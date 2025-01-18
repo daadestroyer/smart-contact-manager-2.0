@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         user.setUserId(UUID.randomUUID().toString());
         user.setProfilePicture(PHOTO_URL);
+        System.out.println("DB--->"+user);
         return this.userRepo.save(user);
     }
 

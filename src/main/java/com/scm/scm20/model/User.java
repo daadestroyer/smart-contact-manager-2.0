@@ -40,7 +40,7 @@ public class User {
     private boolean phoneVerified = false;
 
     // Provider details
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Providers provider = Providers.SELF;
     private String providerUserId;
 
