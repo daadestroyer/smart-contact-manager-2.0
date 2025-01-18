@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
+@RequestMapping("/public")
 public class PageController {
 
     private static final Logger logger = LoggerFactory.getLogger(PageController.class);
@@ -76,7 +77,7 @@ public class PageController {
             logger.warn("Validation errors occurred: {}", bindingResult.getAllErrors());
             // Add the signupFormDto back to the model
             model.addAttribute("signupFormDto", signupFormDto);
-            return "signup";
+            return "/signup";
         }
 
         // Map the DTO to the User entity
@@ -94,7 +95,7 @@ public class PageController {
             session.setAttribute("message", message);
 
             // Redirect to a success or login page
-            return "redirect:/signup";
+            return "redirect:/public/signup";
         } catch (Exception e) {
             logger.error("Error occurred during registration: ", e);
 
@@ -106,7 +107,7 @@ public class PageController {
             session.setAttribute("message", message);
 
             // Redirect back to signup page
-            return "redirect:/signup";
+            return "redirect:/public/signup";
         }
     }
 }

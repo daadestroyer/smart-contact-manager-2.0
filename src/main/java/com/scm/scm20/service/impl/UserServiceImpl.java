@@ -5,6 +5,7 @@ import com.scm.scm20.model.User;
 import com.scm.scm20.repositories.UserRepo;
 import com.scm.scm20.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     private String PHOTO_URL = "https://fr.wikipedia.org/wiki/Fichier:User_icon-cp.png";
+
     @Override
     public User saveUser(User user) {
         user.setUserId(UUID.randomUUID().toString());
         user.setProfilePicture(PHOTO_URL);
-        System.out.println("DB--->"+user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(List.of("ROLE_USER"));
+        System.out.println("DB--->" + user);
         return this.userRepo.save(user);
     }
 

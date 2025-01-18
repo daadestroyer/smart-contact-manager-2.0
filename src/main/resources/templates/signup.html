@@ -20,7 +20,7 @@
                     <!-- Message box -->
                     <div th:replace="message :: message-box"></div>
 
-                    <form class="max-w-md mx-auto" th:action="@{/do-register}" method="POST"
+                    <form class="max-w-md mx-auto" th:action="@{/public/do-register}" method="POST"
                         th:object="${signupFormDto}">
                         <div class="relative z-0 w-full mb-5 group">
                             <input type="text" th:field="*{name}" id="name"
