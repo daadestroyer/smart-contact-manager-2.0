@@ -28,21 +28,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/public/**","/public/login","/logout").permitAll() // Publicly accessible paths
+                        .requestMatchers("/public/**", "/logout").permitAll() // Publicly accessible paths
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll() // Allow static resources
                         .anyRequest().authenticated() // All other paths require authentication
                 )
                 // form default login
                 // if we need to change anything then we will come here related to form login
-        //     .formLogin(Customizer.withDefaults()); // use this if you want spring security pre design login page
-                .formLogin(formLogin->{
-                   formLogin
-                           .loginPage("/login")
-                           .loginProcessingUrl("/authenticate")
-                           .successForwardUrl("/user/dashboard")
-                           .failureForwardUrl("/public/login?error=true")
-                           .usernameParameter("email")
-                           .passwordParameter("password");
+                //     .formLogin(Customizer.withDefaults()); // use this if you want spring security pre design login page
+                .formLogin(formLogin -> {
+                    formLogin
+                            .loginPage("/public/login")
+                            .loginProcessingUrl("/authenticate")
+                            .defaultSuccessUrl("/user/dashboard", true)
+                            .failureForwardUrl("/public/login?error=true")
+                            .usernameParameter("email")
+                            .passwordParameter("password");
                 })
                 .logout(logoutForm -> {
                     logoutForm
@@ -56,13 +56,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
     }
+
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
