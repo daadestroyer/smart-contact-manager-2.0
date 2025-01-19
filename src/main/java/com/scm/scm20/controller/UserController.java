@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/user")
 public class UserController {
     // user dashboard page
-    @RequestMapping(value = "/dashboard",method = RequestMethod.GET)
-    public String userDashboard(){
+    @RequestMapping(value = "/dashboard")
+    public String userDashboard() {
+        System.out.println("User dashboard");
         return "user/dashboard";
     }
     // user add contacts page
