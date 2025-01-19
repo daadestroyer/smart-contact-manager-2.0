@@ -57,7 +57,8 @@ public class PageController {
 
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        System.out.println("Login page requested");
+        return "login.html";
     }
 
     @RequestMapping("/signup")
