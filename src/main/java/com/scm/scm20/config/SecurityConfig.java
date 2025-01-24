@@ -32,14 +32,14 @@ public class SecurityConfig {
                     formLogin
                             .loginPage("/public/login")
                             .loginProcessingUrl("/authenticate")
-                            .defaultSuccessUrl("/user/dashboard", true)
+                            .defaultSuccessUrl("/user/home", true)
                             .failureForwardUrl("/public/login?error=true")
                             .usernameParameter("email")
                             .passwordParameter("password");
                 })
                 .logout(logoutForm -> {
                     logoutForm
-                            .logoutUrl("/logout")
+                            .logoutUrl("/do-logout")
                             .logoutSuccessUrl("/public/login?logout=true")
                             .invalidateHttpSession(true) // Invalidate session
                             .clearAuthentication(true); // Clear authentication

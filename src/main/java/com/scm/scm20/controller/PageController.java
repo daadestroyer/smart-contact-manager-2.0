@@ -45,6 +45,7 @@ public class PageController {
         return "about";
     }
 
+
     @RequestMapping("/services")
     public String services() {
         return "services";
@@ -58,7 +59,7 @@ public class PageController {
     @RequestMapping("/login")
     public String login() {
         System.out.println("Login page requested");
-        return "login.html";
+        return "login";
     }
 
     @RequestMapping("/signup")
