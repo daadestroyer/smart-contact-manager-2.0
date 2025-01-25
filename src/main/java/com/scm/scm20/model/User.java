@@ -54,7 +54,7 @@ public class User implements UserDetails {
     private Providers provider = Providers.SELF;
     private String providerUserId;
 
-    // social link
+    // mapping between user and contact
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Contacts> contactsList = new ArrayList<>();
 

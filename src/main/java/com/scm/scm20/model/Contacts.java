@@ -33,10 +33,13 @@ public class Contacts {
     @Column(name = "contact_favourite")
     private String contactFavourite;
 
+    private String websiteLink;
+    private String facebookLink;
     @ManyToOne
     private User user;
 
-    @OneToMany
-    private List<SocialLink> contact = new ArrayList<>();
+    // mapping between contact and social link
+    @OneToMany(mappedBy = "contacts", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<SocialLink> links = new ArrayList<>();
 
 }

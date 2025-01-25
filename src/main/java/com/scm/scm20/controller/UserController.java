@@ -29,16 +29,6 @@ public class UserController {
         return "user/profile";
     }
     // user add contacts page
-    @RequestMapping(value = "/add-contacts")
-    public String addContacts() {
-        return "user/addcontacts";
-    }
-
-    // user view contacts
-    @RequestMapping(value = "/viewcontacts")
-    public String viewContacts() {
-        return "user/viewcontacts";
-    }
 
     // user edit contact
     // user delete contact
