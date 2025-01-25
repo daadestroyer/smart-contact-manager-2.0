@@ -4,8 +4,16 @@
 <body>
 
     <div class="dashboardcontent p-4 sm:ml-64" style="margin-top: 4rem;">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Welcome back, <span style="color: red;" th:text="${loggedInUser.name}"></span>
+        </h3>
+        <h4 class="text-1xl font-semibold mb-4">Current Time : 
+            <span id="time" class="text-sm text-blue-600"></span>
+        </h4>
+        
         <div class="bg-white overflow-hidden shadow rounded-lg border">
             <div class="px-4 py-5 ">
+                
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                    View Contacts
                 </h3>

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    private String PHOTO_URL = "https://fr.wikipedia.org/wiki/Fichier:User_icon-cp.png";
+    private String PHOTO_URL = "https://img.icons8.com/?size=100&id=21441&format=png&color=000000";
 
     @Override
     public User saveUser(User user) {
@@ -54,6 +54,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> getUserByEmail(String email) {
+        return this.userRepo.findByEmail(email);
+    }
+
+    @Override
     public List<User> getAllUser() {
         return this.userRepo.findAll();
     }
@@ -66,5 +71,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(
                         () -> new UserNotFoundException("User with email " + email + " and password " + password + " not found"));
     }
+
 
 }

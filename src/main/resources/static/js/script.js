@@ -60,7 +60,16 @@ function changePageTheme(theme, oldTheme) {
     .querySelector("span").textContent = theme == "light" ? "Dark" : "Light";
 }
 
-//change page change theme
 
-// Automatically dismiss the alert after 5 seconds
+    function updateTime() {
+      const timeElement = document.getElementById('time');
+      const now = new Date();
+      timeElement.textContent = now.toLocaleTimeString();
+    }
 
+    // Update time every second
+    setInterval(updateTime, 1000);
+
+    // Initialize with the current time
+    updateTime();
+  
