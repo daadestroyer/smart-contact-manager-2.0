@@ -1,11 +1,16 @@
 package com.scm.scm20.controller;
 
 import com.scm.scm20.dto.AddContactFormDto;
+import com.scm.scm20.helper.Helper;
 import com.scm.scm20.model.Contacts;
+import com.scm.scm20.model.User;
+import com.scm.scm20.service.ContactService;
+import com.scm.scm20.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/user/contact")
 public class ContactController {
 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ContactService contactService;
     Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
@@ -36,12 +45,24 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/process-add-contacts", method = RequestMethod.POST)
-    public String processAddContact(@ModelAttribute("addContactFormDto") AddContactFormDto addContactFormDto) {
+    public String processAddContact(@ModelAttribute("addContactFormDto") AddContactFormDto addContactFormDto, Authentication authentication) {
+        // validate the form data [pending]
+
+        String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(emailOfLoggedInUser).get();
         logger.info("addContactFormDto Data---" + addContactFormDto);
 
         Contacts contacts = this.modelMapper.map(addContactFormDto, Contacts.class);
         logger.info("contacts Data---" + contacts);
-        return "user/addcontacts";
+        contacts.setUser(user);
+
+        // set the contact profile picture [pending]
+
+       // saving data into db [pending]
+        contactService.saveContact(contacts);
+
+        // display message in frontend
+        return "redirect:/user/contact/add-contacts";
     }
 
     // user view contacts

@@ -1,6 +1,7 @@
 package com.scm.scm20.controller;
 
 import com.scm.scm20.dto.SignupFormDto;
+import com.scm.scm20.helper.Helper;
 import com.scm.scm20.helper.Message;
 import com.scm.scm20.helper.MessageType;
 import com.scm.scm20.model.User;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/public")
@@ -29,6 +33,8 @@ public class PageController {
 
     @Autowired
     private UserService userService;
+
+
 
     @RequestMapping("/")
     public String index() {

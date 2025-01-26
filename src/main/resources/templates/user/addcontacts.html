@@ -78,13 +78,12 @@
                     </div>
 
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Contact Image</label>
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"  th:field="*{contactPicture}">
                     
                     <div class="flex items-center mt-4 mb-4">
                         <input th:field="*{contactFavourite}" id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Add to favourite contact</label>
                     </div>
-                   
                     
                     <div class="button-container text-center">
                         <button type="submit"

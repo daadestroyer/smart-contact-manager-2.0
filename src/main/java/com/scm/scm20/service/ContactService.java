@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ContactService {
     // save contacts
-    Contacts save(Contacts contact);
+    Contacts saveContact(Contacts contact);
 
     // update contact
     Contacts update(Contacts contact);

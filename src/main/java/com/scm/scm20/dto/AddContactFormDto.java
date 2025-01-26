@@ -16,6 +16,6 @@ public class AddContactFormDto {
         private String contactDescription;
         private String facebookLink;
         private String websiteLink;
-        private MultipartFile contactPicture;
+        private String contactPicture;
         private boolean contactFavourite;
 }

@@ -17,7 +17,7 @@ public class ContactServiceImpl implements ContactService {
 
 
     @Override
-    public Contacts save(Contacts contact) {
+    public Contacts saveContact(Contacts contact) {
         String contactId = UUID.randomUUID().toString();
         contact.setContactId(contactId);
         return contactRepo.save(contact);

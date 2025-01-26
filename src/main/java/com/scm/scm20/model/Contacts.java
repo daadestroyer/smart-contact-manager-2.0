@@ -25,7 +25,7 @@ public class Contacts {
 
     @Column(name = "contact_address", nullable = false)
     private String contactAddress;
-    @Column(name = "contact_picture", nullable = false)
+    @Column(name = "contact_picture")
     private String contactPicture;
     @Column(name = "contact_description", nullable = false,length = 10000)
     private String contactDescription;
