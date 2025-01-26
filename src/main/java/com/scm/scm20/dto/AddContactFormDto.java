@@ -9,13 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 @ToString
 public class AddContactFormDto {
-        private String name;
-        private String email;
-        private String phone;
-        private String address;
-        private String about;
+        private String contactName;
+        private String contactEmail;
+        private String contactPhoneNumber;
+        private String contactAddress;
+        private String contactDescription;
         private String facebookLink;
         private String websiteLink;
-        private MultipartFile picture;
-        private boolean favourite;
+        private MultipartFile contactPicture;
+        private boolean contactFavourite;
 }

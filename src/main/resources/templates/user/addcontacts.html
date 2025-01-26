@@ -22,7 +22,7 @@
             <div class="px-4 py-5 ">
                 <form th:action="@{/user/contact/process-add-contacts}" method="POST" th:object="${addContactFormDto}" class="max-w-2xl mx-auto">
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" th:field="*{name}" id="name"
+                        <input type="text" th:field="*{contactName}" id="contactName"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label for="floating_name"
@@ -30,7 +30,7 @@
                             <span><i class="fa-solid fa-user"></i></span> Name</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="email" th:field="*{email}"  id="email"
+                        <input type="email" th:field="*{contactEmail}"  id="contactEmail"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label for="floating_email"
@@ -38,7 +38,7 @@
                             <span><i class="fa-solid fa-envelope"></i></span> Email</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" th:field="*{phone}" id="phone"
+                        <input type="number" th:field="*{contactPhoneNumber}" id="contactPhoneNumber"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label for="floating_number"
@@ -46,7 +46,7 @@
                             <span><i class="fa-solid fa-phone"></i></span> Contact Number</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" th:field="*{address}" id="address"
+                        <input type="text" th:field="*{contactAddress}" id="contactAddress"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label for="floating_text"
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="relative z-0 w-full mb-5 group">
-                        <textarea  th:field="*{about}" id="about" rows="4"
+                        <textarea  th:field="*{contactDescription}" id="contactDescription" rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter description"></textarea>
                     </div>
@@ -81,7 +81,7 @@
                     <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file">
                     
                     <div class="flex items-center mt-4 mb-4">
-                        <input th:field="*{favourite}" id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input th:field="*{contactFavourite}" id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Add to favourite contact</label>
                     </div>
                    

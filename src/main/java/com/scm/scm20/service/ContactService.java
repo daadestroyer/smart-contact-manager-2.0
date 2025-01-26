@@ -1,0 +1,29 @@
+package com.scm.scm20.service;
+
+import com.scm.scm20.model.Contacts;
+import com.scm.scm20.model.User;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ContactService {
+    // save contacts
+    Contacts save(Contacts contact);
+
+    // update contact
+    Contacts update(Contacts contact);
+
+    // get contacts
+    List<Contacts> getAll();
+
+    // get contact by id
+    Contacts getById(String id);
+
+    // delete contact
+    void delete(String id);
+
+    // get contacts by userId
+    List<Contacts> getByUserId(String userId);
+
+
+}
