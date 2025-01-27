@@ -2,10 +2,13 @@ package com.scm.scm20.controller;
 
 import com.scm.scm20.dto.AddContactFormDto;
 import com.scm.scm20.helper.Helper;
+import com.scm.scm20.helper.Message;
+import com.scm.scm20.helper.MessageType;
 import com.scm.scm20.model.Contacts;
 import com.scm.scm20.model.User;
 import com.scm.scm20.service.ContactService;
 import com.scm.scm20.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -47,11 +50,21 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/process-add-contacts", method = RequestMethod.POST)
-    public String processAddContact(@Valid @ModelAttribute("addContactFormDto") AddContactFormDto addContactFormDto,
-                                    BindingResult bindingResult, Authentication authentication, Model model     ) {
+    public String processAddContact
+            (@Valid @ModelAttribute("addContactFormDto") AddContactFormDto addContactFormDto,
+             BindingResult bindingResult,
+             Authentication authentication,
+             Model model,
+             HttpSession session) {
         // validate the form data [pending]
         if(bindingResult.hasErrors()){
             model.addAttribute("addContactFormDto",addContactFormDto);
+            Message message = Message.builder()
+                    .content("Please correct the following errors")
+                    .type(MessageType.red)
+                    .build();
+            session.setAttribute("message", message);
+            model.addAttribute("addContactFormDto", addContactFormDto);
             return "/user/addcontacts";
         }
         String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
@@ -68,6 +81,11 @@ public class ContactController {
         contactService.saveContact(contacts);
 
         // display message in frontend
+        Message message = Message.builder()
+                .content("Contact added Successfully!")
+                .type(MessageType.green)
+                .build();
+        session.setAttribute("message", message);
         return "redirect:/user/contact/add-contacts";
     }
 
