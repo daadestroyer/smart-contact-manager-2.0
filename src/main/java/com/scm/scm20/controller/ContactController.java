@@ -7,6 +7,7 @@ import com.scm.scm20.helper.MessageType;
 import com.scm.scm20.model.Contacts;
 import com.scm.scm20.model.User;
 import com.scm.scm20.service.ContactService;
+import com.scm.scm20.service.ImageService;
 import com.scm.scm20.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -22,10 +23,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/user/contact")
 public class ContactController {
 
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -67,11 +72,14 @@ public class ContactController {
             model.addAttribute("addContactFormDto", addContactFormDto);
             return "/user/addcontacts";
         }
+        logger.info("Get original filename --- "+addContactFormDto.getContactPicture().getOriginalFilename());
         String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
         User user = userService.getUserByEmail(emailOfLoggedInUser).get();
         logger.info("addContactFormDto Data---" + addContactFormDto);
 
         Contacts contacts = this.modelMapper.map(addContactFormDto, Contacts.class);
+        String fileURL = imageService.uploadImage(addContactFormDto.getContactPicture());
+        contacts.setCloudinaryImagePublicId(fileURL);
         logger.info("contacts Data---" + contacts);
         contacts.setUser(user);
 
@@ -92,6 +100,7 @@ public class ContactController {
     // user view contacts
     @RequestMapping(value = "/viewcontacts")
     public String viewContacts() {
+        List<Contacts> contacts = contactService.getAll();
         return "user/viewcontacts";
     }
 

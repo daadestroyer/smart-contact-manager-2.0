@@ -6,7 +6,9 @@ import com.scm.scm20.repositories.ContactRepo;
 import com.scm.scm20.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,5 +50,15 @@ public class ContactServiceImpl implements ContactService {
     public List<Contacts> getByUserId(String userId) {
         return contactRepo.findByUserId(userId);
 
+    }
+    public byte[] convertMultipartFileToBytes(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return null;
+        }
+        try {
+            return file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to convert file", e);
+        }
     }
 }

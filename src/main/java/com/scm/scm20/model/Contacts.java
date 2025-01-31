@@ -2,7 +2,10 @@ package com.scm.scm20.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +28,8 @@ public class Contacts {
 
     @Column(name = "contact_address", nullable = false)
     private String contactAddress;
-    @Column(name = "contact_picture")
-    private String contactPicture;
+    // Storing the image as a byte array
+    private String cloudinaryImagePublicId;
     @Column(name = "contact_description", nullable = false,length = 10000)
     private String contactDescription;
 
@@ -42,4 +45,8 @@ public class Contacts {
     @OneToMany(mappedBy = "contacts", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SocialLink> links = new ArrayList<>();
 
+    // New column to store the creation timestamp
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = true, nullable = false)
+    private LocalDateTime createdDate;
 }

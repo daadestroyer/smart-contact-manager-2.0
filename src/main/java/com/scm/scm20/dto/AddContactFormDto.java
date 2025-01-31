@@ -1,11 +1,15 @@
 package com.scm.scm20.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -32,6 +36,10 @@ public class AddContactFormDto {
     private String contactDescription;
     private String facebookLink;
     private String websiteLink;
-    private String contactPicture;
+    // Instead of MultipartFile, use byte[]
+    private MultipartFile contactPicture;  // Receiving the file from frontend
     private boolean contactFavourite;
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = true, nullable = false)
+    private LocalDateTime createdDate;
 }

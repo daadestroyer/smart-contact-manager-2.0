@@ -2,6 +2,7 @@ package com.scm.scm20.service;
 
 import com.scm.scm20.model.Contacts;
 import com.scm.scm20.model.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,6 @@ public interface ContactService {
 
     // get contacts by userId
     List<Contacts> getByUserId(String userId);
-
+    byte[] convertMultipartFileToBytes(MultipartFile file);
 
 }

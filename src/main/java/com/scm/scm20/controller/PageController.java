@@ -26,6 +26,7 @@ import java.util.Optional;
 @RequestMapping("/public")
 public class PageController {
 
+
     private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 
     @Autowired
