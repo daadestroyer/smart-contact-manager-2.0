@@ -743,6 +743,10 @@ video {
   display: block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -1064,6 +1068,10 @@ video {
 
 .border-t-\[10px\] {
   border-top-width: 10px;
+}
+
+.border-none {
+  border-style: none;
 }
 
 .border-gray-100 {

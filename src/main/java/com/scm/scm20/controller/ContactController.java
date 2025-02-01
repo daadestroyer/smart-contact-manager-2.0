@@ -114,7 +114,11 @@ public class ContactController {
 
 //        logger.info("Contacts Fetched : "+contacts);
         model.addAttribute("contacts", contacts);
-        return "user/viewcontacts";
+        return "/user/viewcontacts";
     }
 
+    @RequestMapping(value = "/updatecontact", method = RequestMethod.GET)
+    public String updateContact() {
+        return "user/updatecontact";
+    }
 }
