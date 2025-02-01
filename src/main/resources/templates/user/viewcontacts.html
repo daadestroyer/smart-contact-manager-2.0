@@ -87,10 +87,10 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                   <i class="fa-solid fa-person"></i> Name
+                                    Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    <i class="fa-solid fa-envelope"></i> Email
+                                    Email
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <i class="fa-solid fa-phone"></i> Phone
@@ -99,50 +99,60 @@
                                     <i class="fa-solid fa-address-book"></i> Address
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                     Favourite
+                                    Favourite
                                 </th>
-                                <!-- <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3">
                                     <i class="fa-solid fa-signal-bars"></i> Status
-                                </th> -->
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="c : ${contacts}" 
+                            <tr th:each="c : ${contacts}"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                
+
                                 <td class="w-4 p-4">
                                     <div class="flex items-center">
-                                        <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
+                                        <input type="checkbox"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500">
                                     </div>
                                 </td>
-                        
-                                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img class="w-10 h-10 rounded-full" th:src="${c.cloudinaryImagePublicId}" alt="Contact Image">
+
+                                <th scope="row"
+                                    class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                    <img class="w-10 h-10 rounded-full" th:src="${c.cloudinaryImagePublicId}"
+                                        alt="Contact Image">
                                     <div class="ps-3">
                                         <div class="text-base font-semibold" th:text="${c.contactName}"></div>
                                     </div>
                                 </th>
-                        
+
                                 <td class="px-6 py-4" th:text="${c.contactEmail}"></td>
                                 <td class="px-6 py-4" th:text="${c.contactPhoneNumber}"></td>
                                 <td class="px-6 py-4" th:text="${c.contactAddress}"></td>
-                                <!-- <td class="px-6 py-4" th:text="${c.contactFavourite}"></td> -->
-                        
+                                <td class="px-6 py-4" th:if="${c.contactFavourite}">
+                                    <i class="fa-solid fa-star text-yellow-400"></i>
+                                </td>
+                                <td class="text-center px-6 py-4" th:if="${!c.contactFavourite}">
+                                </td>
+
+
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                                        
-                                        
+
+
+
                                         <div class="text-sm text-blue-600">
-                                            <a th:href="${c.facebookLink}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                                            <a th:href="${c.websiteLink}" target="_blank" class="hover:underline" th:if="${c.websiteLink != null}"><i class="fa-solid fa-globe"></i></a>
+                                            <a th:href="${c.facebookLink}" target="_blank"><i
+                                                    class="fa-brands fa-facebook"></i></a>
+                                            <a th:href="${c.websiteLink}" target="_blank" class="hover:underline"
+                                                th:if="${c.websiteLink != null}"><i class="fa-solid fa-globe"></i></a>
                                         </div>
                                     </div>
                                 </td>
-                        
+
                                 <!-- <td class="px-6 py-4">
                                     <a th:href="@{/user/contact/updateUser/{email}(email=${c.contactEmail})}" 
                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -151,12 +161,11 @@
                                 </td> -->
 
                                 <td class="px-6 py-4">
-                                    <a href="#" 
-                                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                         Edit
                                     </a>
                                 </td>
-                        
+
                             </tr>
                         </tbody>
                     </table>

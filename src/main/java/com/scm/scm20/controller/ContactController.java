@@ -72,14 +72,23 @@ public class ContactController {
             model.addAttribute("addContactFormDto", addContactFormDto);
             return "/user/addcontacts";
         }
+
         logger.info("Get original filename --- "+addContactFormDto.getContactPicture().getOriginalFilename());
         String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
         User user = userService.getUserByEmail(emailOfLoggedInUser).get();
         logger.info("addContactFormDto Data---" + addContactFormDto);
 
         Contacts contacts = this.modelMapper.map(addContactFormDto, Contacts.class);
-        String fileURL = imageService.uploadImage(addContactFormDto.getContactPicture());
-        contacts.setCloudinaryImagePublicId(fileURL);
+
+        if(addContactFormDto.getContactPicture().getOriginalFilename() == ""){
+            logger.info("setting default image");
+            contacts.setCloudinaryImagePublicId("https://img.icons8.com/?size=100&id=21441&format=png&color=000000");
+        }
+        else{
+            logger.info("setting provided image");
+            String fileURL = imageService.uploadImage(addContactFormDto.getContactPicture());
+            contacts.setCloudinaryImagePublicId(fileURL);
+        }
         logger.info("contacts Data---" + contacts);
         contacts.setUser(user);
 
