@@ -1,5 +1,6 @@
 package com.scm.scm20.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,6 +40,7 @@ public class Contacts {
     private String websiteLink;
     private String facebookLink;
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     // mapping between contact and social link

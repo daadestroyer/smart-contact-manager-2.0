@@ -2,6 +2,7 @@ package com.scm.scm20.service.impl;
 
 import com.scm.scm20.customexception.ContactNotFoundException;
 import com.scm.scm20.model.Contacts;
+import com.scm.scm20.model.User;
 import com.scm.scm20.repositories.ContactRepo;
 import com.scm.scm20.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,9 @@ public class ContactServiceImpl implements ContactService {
         return contactRepo.findByUserId(userId);
 
     }
+
+
+
     public byte[] convertMultipartFileToBytes(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return null;

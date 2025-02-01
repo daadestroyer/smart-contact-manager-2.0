@@ -98,9 +98,14 @@ public class ContactController {
     }
 
     // user view contacts
-    @RequestMapping(value = "/viewcontacts")
-    public String viewContacts() {
-        List<Contacts> contacts = contactService.getAll();
+    @RequestMapping(value = "/viewcontacts",method = RequestMethod.GET)
+    public String viewContacts(Model model, Authentication authentication) {
+        String email = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(email).get();
+        List<Contacts> contacts = contactService.getByUserId(user.getUserId());
+
+//        logger.info("Contacts Fetched : "+contacts);
+        model.addAttribute("contacts",contacts);
         return "user/viewcontacts";
     }
 

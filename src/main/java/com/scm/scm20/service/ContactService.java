@@ -25,6 +25,8 @@ public interface ContactService {
 
     // get contacts by userId
     List<Contacts> getByUserId(String userId);
+
+
     byte[] convertMultipartFileToBytes(MultipartFile file);
 
 }
