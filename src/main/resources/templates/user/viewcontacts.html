@@ -87,32 +87,23 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Name
+                                   <i class="fa-solid fa-person"></i> Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Email
+                                    <i class="fa-solid fa-envelope"></i> Email
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Phone
+                                    <i class="fa-solid fa-phone"></i> Phone
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Address
+                                    <i class="fa-solid fa-address-book"></i> Address
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    About
+                                     Favourite
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Facebook
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Website
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Favourite
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Status
-                                </th>
+                                <!-- <th scope="col" class="px-6 py-3">
+                                    <i class="fa-solid fa-signal-bars"></i> Status
+                                </th> -->
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
@@ -138,23 +129,32 @@
                                 <td class="px-6 py-4" th:text="${c.contactEmail}"></td>
                                 <td class="px-6 py-4" th:text="${c.contactPhoneNumber}"></td>
                                 <td class="px-6 py-4" th:text="${c.contactAddress}"></td>
-                                <td class="px-6 py-4" th:text="${c.contactDescription}"></td>
-                                <td class="px-6 py-4">
-                                    <a th:href="${c.facebookLink}" th:text="${c.facebookLink}"></a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a th:href="${c.websiteLink}" th:text="${c.websiteLink}"></a>
-                                </td>
-                                <td class="px-6 py-4" th:text="${c.contactFavourite}"></td>
+                                <!-- <td class="px-6 py-4" th:text="${c.contactFavourite}"></td> -->
                         
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Active
+                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                        
+                                        
+                                        <div class="text-sm text-blue-600">
+                                            <a th:href="${c.facebookLink}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                            <a th:href="${c.websiteLink}" target="_blank" class="hover:underline" th:if="${c.websiteLink != null}"><i class="fa-solid fa-globe"></i></a>
+                                        </div>
                                     </div>
                                 </td>
                         
+                                <!-- <td class="px-6 py-4">
+                                    <a th:href="@{/user/contact/updateUser/{email}(email=${c.contactEmail})}" 
+                                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                        Edit
+                                    </a>
+                                </td> -->
+
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <a href="#" 
+                                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                        Edit
+                                    </a>
                                 </td>
                         
                             </tr>
