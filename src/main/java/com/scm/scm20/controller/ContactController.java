@@ -62,8 +62,8 @@ public class ContactController {
              Model model,
              HttpSession session) {
         // validate the form data [pending]
-        if(bindingResult.hasErrors()){
-            model.addAttribute("addContactFormDto",addContactFormDto);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("addContactFormDto", addContactFormDto);
             Message message = Message.builder()
                     .content("Please correct the following errors")
                     .type(MessageType.red)
@@ -73,18 +73,17 @@ public class ContactController {
             return "/user/addcontacts";
         }
 
-        logger.info("Get original filename --- "+addContactFormDto.getContactPicture().getOriginalFilename());
+        logger.info("Get original filename --- " + addContactFormDto.getContactPicture().getOriginalFilename());
         String emailOfLoggedInUser = Helper.getEmailOfLoggedInUser(authentication);
         User user = userService.getUserByEmail(emailOfLoggedInUser).get();
         logger.info("addContactFormDto Data---" + addContactFormDto);
 
         Contacts contacts = this.modelMapper.map(addContactFormDto, Contacts.class);
 
-        if(addContactFormDto.getContactPicture().getOriginalFilename() == ""){
+        if (addContactFormDto.getContactPicture().getOriginalFilename() == "") {
             logger.info("setting default image");
             contacts.setCloudinaryImagePublicId("https://img.icons8.com/?size=100&id=21441&format=png&color=000000");
-        }
-        else{
+        } else {
             logger.info("setting provided image");
             String fileURL = imageService.uploadImage(addContactFormDto.getContactPicture());
             contacts.setCloudinaryImagePublicId(fileURL);
@@ -94,7 +93,7 @@ public class ContactController {
 
         // set the contact profile picture [pending]
 
-       // saving data into db [pending]
+        // saving data into db [pending]
         contactService.saveContact(contacts);
 
         // display message in frontend
@@ -107,14 +106,14 @@ public class ContactController {
     }
 
     // user view contacts
-    @RequestMapping(value = "/viewcontacts",method = RequestMethod.GET)
+    @RequestMapping(value = "/viewcontacts", method = RequestMethod.GET)
     public String viewContacts(Model model, Authentication authentication) {
         String email = Helper.getEmailOfLoggedInUser(authentication);
         User user = userService.getUserByEmail(email).get();
         List<Contacts> contacts = contactService.getByUserId(user.getUserId());
 
 //        logger.info("Contacts Fetched : "+contacts);
-        model.addAttribute("contacts",contacts);
+        model.addAttribute("contacts", contacts);
         return "user/viewcontacts";
     }
 
