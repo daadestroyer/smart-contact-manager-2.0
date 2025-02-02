@@ -15,6 +15,9 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -107,13 +111,23 @@ public class ContactController {
 
     // user view contacts
     @RequestMapping(value = "/viewcontacts", method = RequestMethod.GET)
-    public String viewContacts(Model model, Authentication authentication) {
+    public String viewContacts(
+            @RequestParam(defaultValue = "0") int currentPage,
+            @RequestParam(defaultValue = "5") int size,
+            Model model,
+            Authentication authentication) {
         String email = Helper.getEmailOfLoggedInUser(authentication);
-        User user = userService.getUserByEmail(email).get();
-        List<Contacts> contacts = contactService.getByUserId(user.getUserId());
+        User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        Pageable pageable = PageRequest.of(currentPage, size);
 
-//        logger.info("Contacts Fetched : "+contacts);
-        model.addAttribute("contacts", contacts);
+        Page<Contacts> contactsPage = contactService.getByUserId(user.getUserId(), pageable);
+
+        model.addAttribute("contacts", contactsPage.getContent());
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", contactsPage.getTotalPages());
+        model.addAttribute("size", size); // Current page size
+
+
         return "/user/viewcontacts";
     }
 

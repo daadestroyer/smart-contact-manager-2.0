@@ -172,8 +172,61 @@
                                 </td>
 
                             </tr>
+
                         </tbody>
                     </table>
+
+                    <!-- Pagination -->
+                    <div class="p-3 text-center">
+                        <!-- Page Size Selection -->
+                        <label for="pageSize" class="text-gray-700 dark:text-gray-300">Records per page:</label>
+                        <select id="pageSize" class="border border-gray-300 px-2 py-1 rounded-md"
+                            onchange="updatePageSize()">
+                            <option value="5" th:selected="${size == 5}">5</option>
+                            <option value="10" th:selected="${size == 10}">10</option>
+                            <option value="20" th:selected="${size == 20}">20</option>
+                            <option value="50" th:selected="${size == 50}">50</option>
+                        </select>
+
+                        <nav aria-label="Page navigation">
+                            <ul class="inline-flex -space-x-px text-sm mt-2">
+                                <!-- Previous Button -->
+                                <li th:if="${currentPage > 0}">
+                                    <a th:href="@{/user/contact/viewcontacts(page=${currentPage - 1}, size=${size})}"
+                                        class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        Previous
+                                    </a>
+                                </li>
+
+                                <!-- Page Numbers -->
+                                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                                    <a th:href="@{/user/contact/viewcontacts(currentPage=${i}, size=${size})}"
+                                        th:text="${i + 1}"
+                                        th:classappend="${i == currentPage} ? 'text-blue-600 border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' 
+                                : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'"
+                                        class="flex items-center justify-center px-3 h-8 leading-tight border">
+                                    </a>
+                                </li>
+
+                                <!-- Next Button -->
+                                <li th:if="${currentPage + 1 < totalPages}">
+                                    <a th:href="@{/user/contact/viewcontacts(currentPage=${currentPage + 1}, size=${size})}"
+                                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        Next
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- JavaScript for Dynamic Page Size Handling -->
+                    <script>
+                        function updatePageSize() {
+                            let pageSize = document.getElementById("pageSize").value;
+                            window.location.href = `/user/contact/viewcontacts?currentPage=0&size=` + pageSize;
+                        }
+                    </script>
+                    
                 </div>
             </div>
         </div>
