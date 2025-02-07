@@ -128,7 +128,7 @@ public class ContactController {
         model.addAttribute("totalPages", contactsPage.getTotalPages());
         model.addAttribute("size", size); // Current page size
         model.addAttribute("contactSearchForm", new ContactSearchForm());
-
+        model.addAttribute("totalContacts",contactsPage.getTotalElements());
         return "/user/viewcontacts";
     }
 
