@@ -5,6 +5,7 @@ import com.scm.scm20.model.User;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,5 +29,11 @@ public interface ContactService {
     Page<Contacts> getByUserId(String userId, Pageable pageable);
 
     byte[] convertMultipartFileToBytes(MultipartFile file);
+
+    Page<Contacts> searchByName(String keyword, int size, int page, String sortBy, String order);
+
+    Page<Contacts> searchByEmail(String keyword, int size, int page, String sortBy, String order);
+
+    Page<Contacts> searchByPhone(String keyword, int size, int page, String sortBy, String order);
 
 }

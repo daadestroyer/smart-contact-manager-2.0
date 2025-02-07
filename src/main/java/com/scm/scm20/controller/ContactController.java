@@ -1,6 +1,7 @@
 package com.scm.scm20.controller;
 
 import com.scm.scm20.dto.AddContactFormDto;
+import com.scm.scm20.dto.ContactSearchForm;
 import com.scm.scm20.helper.Helper;
 import com.scm.scm20.helper.Message;
 import com.scm.scm20.helper.MessageType;
@@ -126,12 +127,38 @@ public class ContactController {
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", contactsPage.getTotalPages());
         model.addAttribute("size", size); // Current page size
-
+        model.addAttribute("contactSearchForm", new ContactSearchForm());
 
         return "/user/viewcontacts";
     }
 
-    @RequestMapping(value = "/updatecontact", method = RequestMethod.GET)
+    @RequestMapping(value = "/search")
+    public String search(
+            @ModelAttribute ContactSearchForm contactSearchForm,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "contactName") String sortBy,
+            @RequestParam(defaultValue = "asc") String order, Model model) {
+        logger.info("field and keyword is : " + contactSearchForm.getField()+" : "+contactSearchForm.getValue());
+
+        Page<Contacts> pageContact = null;
+        if (contactSearchForm.getField().equalsIgnoreCase("contactName")) {
+            pageContact = contactService.searchByName(contactSearchForm.getValue(), size, page, sortBy, order);
+        } else if (contactSearchForm.getField().equalsIgnoreCase("contactEmail")) {
+            pageContact = contactService.searchByEmail(contactSearchForm.getValue(), size, page, sortBy, order);
+        } else if (contactSearchForm.getField().equalsIgnoreCase("contactPhoneNumber")) {
+            pageContact = contactService.searchByPhone(contactSearchForm.getValue(), size, page, sortBy, order);
+        }
+        logger.info("pageContact {}", pageContact);
+
+        model.addAttribute("contactSearchForm", contactSearchForm);
+
+        model.addAttribute("pageContact", pageContact);
+
+        return "user/search";
+    }
+
+    @RequestMapping(value = "/updatecon tact", method = RequestMethod.GET)
     public String updateContact() {
         return "user/updatecontact";
     }
