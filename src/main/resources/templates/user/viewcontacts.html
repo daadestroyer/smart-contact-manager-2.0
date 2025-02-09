@@ -2,7 +2,6 @@
 <html lang="en" th:replace="~{/user/dashboard :: parent(~{::.dashboardcontent})} ">
 
 <body>
-
     <div class="dashboardcontent p-4 sm:ml-64" style="margin-top: 4rem;">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
             Welcome back, <span style="color: red;" th:text="${loggedInUser.name}"></span>
@@ -154,7 +153,7 @@
                                     </a>
                                     <a href="#"
                                         class="w-6 h-6 font-medium text-green-600 dark:text-green-500 hover:underline">
-                                        <i class="fa-solid fa-eye"></i>
+                                       <button th:onclick="loadContactData([[${c.contactId}]])"> <i class="fa-solid fa-circle-info"></i></button>
                                     </a>
                                 </td>
 
@@ -217,9 +216,9 @@
                 </div>
             </div>
         </div>
-
+        <div  th:replace="user/contact-modal :: contactmodal"></div>
     </div>
-
+    <script th:src="@{'/js/contact.js'}"></script>
 
 </body>
 
