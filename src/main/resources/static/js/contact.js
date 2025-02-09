@@ -45,6 +45,7 @@ async function loadContactData(contactId) {
         document.querySelector("#contact_fb").innerHTML = data.facebookLink
         document.querySelector("#contact_website").innerHTML = data.websiteLink
         document.querySelector("#contact_fav").innerHTML = data.contactFavourite
+        document.querySelector("#contact_image").src = data.cloudinaryImagePublicId;
         openContactModal();
         
     } catch (error) {
