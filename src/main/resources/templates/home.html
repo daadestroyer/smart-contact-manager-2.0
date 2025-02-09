@@ -2,18 +2,43 @@
 <html lang="en" th:replace="~{base :: parent(~{::.content},~{::title})}">
 <head>
     <title>Home Page | Smart Contact Manager 2.0</title>
-    
 </head>
 <body>
-    
-        
+    <section class="bg-white dark:bg-gray-900 content">
+        <nav class="block py-4 backdrop-saturate-200 backdrop-blur-2xl bg-opacity-80 border-white/80 w-full max-w-full rounded-none px-4 bg-white text-white border-0">
+            <div class="container flex items-center justify-between mx-auto">
+                <p class="block antialiased font-sans text-blue-gray-900 text-lg font-bold">Smart Contact Manager</p>
+                <ul class="items-center hidden gap-6 ml-10 lg:flex">
+                    <li><a href="#" class="antialiased font-sans text-base leading-relaxed font-medium text-blue-gray-700">Dashboard</a></li>
+                    <li><a href="#" class="antialiased font-sans text-base leading-relaxed font-medium text-blue-gray-700">My Contacts</a></li>
+                    <li><a href="#" class="antialiased font-sans text-base leading-relaxed font-medium text-blue-gray-700">Profile</a></li>
+                    <li><a href="#" class="antialiased font-sans text-base leading-relaxed font-medium text-blue-gray-700">Help</a></li>
+                </ul>
+                <div class="items-center hidden gap-4 lg:flex">
+                    <button class="py-3 px-6 rounded-lg text-gray-900 hover:bg-gray-900/10">Log in</button>
+                    <button class="py-3 px-6 rounded-lg bg-gray-900 text-white">Sign Up</button>
+                </div>
+            </div>
+        </nav>
 
-<section class="bg-white dark:bg-gray-900 content">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Home Page</h1>
-    </div>
-</section>
-
-    
+        <header class="p-8 bg-white">
+            <div class="container pt-12 pb-6 mx-auto text-center w-full lg:pb-20">
+                <h1 class="block font-sans font-semibold text-blue-gray-900 mx-auto mb-6 w-full text-3xl lg:text-5xl">Welcome to Smart Contact Manager</h1>
+                <p class="block font-sans text-xl font-normal leading-relaxed text-gray-500 mx-auto w-full lg:w-10/12">Manage all your contacts in one place with ease. Organize, store, and access your contacts securely.</p>
+                <div class="grid w-full mt-8 place-items-start md:justify-center">
+                    <div class="flex flex-col w-full gap-4 mb-2 md:w-11/12 md:flex-row">
+                        <div class="relative w-full min-w-[200px] h-11">
+                            <input class="peer w-full h-full bg-transparent text-blue-gray-700 border border-blue-gray-200 rounded-md px-3 py-3 focus:border-gray-900" placeholder="Enter your email" />
+                        </div>
+                        <button class="py-3 rounded-lg bg-gray-900 text-white w-full px-4 md:w-[12rem]">Get Started</button>
+                    </div>
+                    <p class="block text-sm text-gray-500">By signing up, you agree to our <a href="#" class="font-medium underline">Terms and Conditions</a></p>
+                </div>
+            </div>
+            <div class="w-full lg:container lg:mx-auto">
+                <img src="https://bucket.material-tailwind.com/magic-ai/3582b3d039594149b4ad1a6fc541adc400f4e198f04d847dca914a1f1d4de3c7.jpg" alt="Smart Contact Manager" class="h-96 w-full rounded-lg object-cover lg:h-[21rem]" />
+            </div>
+        </header>
+    </section>
 </body>
 </html>
