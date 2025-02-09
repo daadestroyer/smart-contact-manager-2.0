@@ -59,3 +59,38 @@ function closeContactModal() {
     contactModal.hide();
 }
 
+
+function deleteContact(id) {
+    Swal.fire({
+        title: "Do you want to delete the user?",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#d33",  // Red color for "Delete"
+        cancelButtonColor: "#6c757d" // Gray color for "Cancel"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // ✅ Show confirmation alert first
+            Swal.fire({
+                title: "Deleted!",
+                text: "User has been removed.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            }).then(() => {
+                // ✅ Redirect only AFTER user clicks "OK"
+                const url = "http://localhost:8081/user/contact/deleteContact/" + id;
+                window.location.replace(url);
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // ✅ If "Cancel" is clicked
+            Swal.fire({
+                title: "Cancelled",
+                text: "User is safe.",
+                icon: "info",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}
