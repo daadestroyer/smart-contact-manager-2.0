@@ -128,8 +128,10 @@ public class ContactController {
         model.addAttribute("totalPages", contactsPage.getTotalPages());
         model.addAttribute("size", size); // Current page size
         model.addAttribute("contactSearchForm", new ContactSearchForm());
-        model.addAttribute("totalContacts",contactsPage.getTotalElements());
+        model.addAttribute("contactsPage",contactsPage);
+
         return "/user/viewcontacts";
+
     }
 
     @RequestMapping(value = "/search")
@@ -138,16 +140,16 @@ public class ContactController {
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "contactName") String sortBy,
-            @RequestParam(defaultValue = "asc") String order, Model model) {
+            @RequestParam(defaultValue = "asc") String order, Model model,Authentication authentication) {
         logger.info("field and keyword is : " + contactSearchForm.getField()+" : "+contactSearchForm.getValue());
-
+        User user = userService.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication)).get();
         Page<Contacts> pageContact = null;
         if (contactSearchForm.getField().equalsIgnoreCase("contactName")) {
-            pageContact = contactService.searchByName(contactSearchForm.getValue(), size, page, sortBy, order);
+            pageContact = contactService.searchByName(contactSearchForm.getValue(), size, page, sortBy, order,user);
         } else if (contactSearchForm.getField().equalsIgnoreCase("contactEmail")) {
-            pageContact = contactService.searchByEmail(contactSearchForm.getValue(), size, page, sortBy, order);
+            pageContact = contactService.searchByEmail(contactSearchForm.getValue(), size, page, sortBy, order,user);
         } else if (contactSearchForm.getField().equalsIgnoreCase("contactPhoneNumber")) {
-            pageContact = contactService.searchByPhone(contactSearchForm.getValue(), size, page, sortBy, order);
+            pageContact = contactService.searchByPhone(contactSearchForm.getValue(), size, page, sortBy, order,user);
         }
         logger.info("pageContact {}", pageContact);
 

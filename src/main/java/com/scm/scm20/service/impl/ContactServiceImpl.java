@@ -74,26 +74,26 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Page<Contacts> searchByName(String keyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByName(String keyword, int size, int page, String sortBy, String order, User loggedInUser) {
         logger.info("Search by name called");
         Sort sort = order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         PageRequest pageAble = PageRequest.of(page, size, sort);
-        logger.info("searchByName : "+contactRepo.findByContactNameContaining(keyword,pageAble));
-        return contactRepo.findByContactNameContaining(keyword, pageAble);
+
+        return contactRepo.findByUserAndContactNameContaining(loggedInUser, keyword, pageAble);
     }
 
     @Override
-    public Page<Contacts> searchByEmail(String keyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByEmail(String keyword, int size, int page, String sortBy, String order, User loggedInUser) {
         Sort sort = order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         PageRequest pageAble = PageRequest.of(page, size, sort);
-        return contactRepo.findByContactNameContaining(keyword, pageAble);
+        return contactRepo.findByUserAndContactEmailContaining(loggedInUser, keyword, pageAble);
     }
 
     @Override
-    public Page<Contacts> searchByPhone(String keyword, int size, int page, String sortBy, String order) {
+    public Page<Contacts> searchByPhone(String keyword, int size, int page, String sortBy, String order, User loggedInUser) {
         Sort sort = order.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         PageRequest pageAble = PageRequest.of(page, size, sort);
-        return contactRepo.findByContactPhoneNumberContaining(keyword, pageAble);
+        return contactRepo.findByUserAndContactPhoneNumberContaining(loggedInUser, keyword, pageAble);
     }
 
 

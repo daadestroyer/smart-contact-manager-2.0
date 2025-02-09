@@ -30,10 +30,10 @@ public interface ContactService {
 
     byte[] convertMultipartFileToBytes(MultipartFile file);
 
-    Page<Contacts> searchByName(String keyword, int size, int page, String sortBy, String order);
+    Page<Contacts> searchByName(String keyword, int size, int page, String sortBy, String order, User loggedInUser);
 
-    Page<Contacts> searchByEmail(String keyword, int size, int page, String sortBy, String order);
+    Page<Contacts> searchByEmail(String keyword, int size, int page, String sortBy, String order, User loggedInUser);
 
-    Page<Contacts> searchByPhone(String keyword, int size, int page, String sortBy, String order);
+    Page<Contacts> searchByPhone(String keyword, int size, int page, String sortBy, String order, User loggedInUser);
 
 }
