@@ -96,6 +96,7 @@ public class ContactController {
         // set the contact profile picture [pending]
 
         // saving data into db [pending]
+
         contactService.saveContact(contacts);
 
         // display message in frontend
@@ -170,8 +171,44 @@ public class ContactController {
         addContactFormDto.setFacebookLink(contact.getFacebookLink());
         addContactFormDto.setWebsiteLink(contact.getWebsiteLink());
         addContactFormDto.setContactFavourite(contact.isContactFavourite());
-        model.addAttribute("addContactFormDto",addContactFormDto);
+        model.addAttribute("addContactFormDto", addContactFormDto);
         return "user/updatecontact";
+    }
+
+    @RequestMapping(value = "/process-update-contact/{contactId}", method = RequestMethod.POST)
+    public String processUpdateContact(@Valid @ModelAttribute AddContactFormDto addContactFormDto,
+                                       BindingResult bindingResult,
+                                       @PathVariable("contactId") String contactId,
+                                       Model model, HttpSession session) {
+        // validate the form data [pending]
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("addContactFormDto", addContactFormDto);
+            Message message = Message.builder()
+                    .content("Please correct the following errors")
+                    .type(MessageType.red)
+                    .build();
+            session.setAttribute("message", message);
+            model.addAttribute("addContactFormDto", addContactFormDto);
+            return "/user/updatecontact";
+        }
+        Contacts new_contact = this.modelMapper.map(addContactFormDto, Contacts.class);
+        if (addContactFormDto.getContactPicture().getOriginalFilename() == "") {
+            logger.info("setting default image");
+            new_contact.setCloudinaryImagePublicId("https://img.icons8.com/?size=100&id=21441&format=png&color=000000");
+        } else {
+            logger.info("setting provided image");
+            String fileURL = imageService.uploadImage(addContactFormDto.getContactPicture());
+            new_contact.setCloudinaryImagePublicId(fileURL);
+        }
+        Contacts updatedContact = contactService.update(new_contact,contactId);
+        model.addAttribute("addContactFormDto", addContactFormDto);
+        Message message = Message.builder()
+                .content("Contact updated successfully")
+                .type(MessageType.green)
+                .build();
+        session.setAttribute("message", message);
+        model.addAttribute("addContactFormDto", addContactFormDto);
+        return "redirect:/user/contact/viewcontacts";
     }
 
     @RequestMapping("/deleteContact/{contactId}")

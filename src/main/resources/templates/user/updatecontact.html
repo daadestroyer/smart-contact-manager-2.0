@@ -70,9 +70,10 @@
             </div>
             <div class="px-4 py-5 ">
 
-                <form th:action="@{/user/contact/process-add-contacts}" 
-                      method="POST" 
+                <form 
                       th:object="${addContactFormDto}"
+                      th:action="@{'/user/contact/process-update-contact/'+${contactId}}" 
+                      method="POST" 
                       enctype="multipart/form-data"
                         class="max-w-2xl mx-auto">
 

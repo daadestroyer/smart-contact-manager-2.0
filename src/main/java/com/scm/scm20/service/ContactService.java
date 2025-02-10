@@ -14,7 +14,7 @@ public interface ContactService {
     Contacts saveContact(Contacts contact);
 
     // update contact
-    Contacts update(Contacts contact);
+    Contacts update(Contacts contact,String contactId);
 
     // get contacts
     List<Contacts> getAll();

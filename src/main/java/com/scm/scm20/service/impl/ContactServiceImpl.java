@@ -2,6 +2,7 @@ package com.scm.scm20.service.impl;
 
 import com.scm.scm20.controller.ContactController;
 import com.scm.scm20.customexception.ContactNotFoundException;
+import com.scm.scm20.customexception.UserNotFoundException;
 import com.scm.scm20.model.Contacts;
 import com.scm.scm20.model.User;
 import com.scm.scm20.repositories.ContactRepo;
@@ -36,8 +37,20 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contacts update(Contacts contact) {
-        return null;
+    public Contacts update(Contacts contact, String contactId) {
+        Contacts OldContact = this.contactRepo.findById(contactId).orElseThrow(() -> new UserNotFoundException("Contact with email " + contact.getContactEmail() + " not found"));
+        OldContact.setContactName(contact.getContactName());
+        OldContact.setContactEmail(contact.getContactEmail());
+        OldContact.setContactDescription(contact.getContactDescription());
+        OldContact.setContactAddress(contact.getContactAddress());
+        OldContact.setContactPhoneNumber(contact.getContactPhoneNumber());
+        OldContact.setContactDescription(contact.getContactDescription());
+        OldContact.setCloudinaryImagePublicId(contact.getCloudinaryImagePublicId());
+        OldContact.setContactFavourite(contact.isContactFavourite());
+        OldContact.setFacebookLink(contact.getFacebookLink());
+        OldContact.setWebsiteLink(contact.getWebsiteLink());
+        return this.contactRepo.save(OldContact);
+
     }
 
     @Override
