@@ -141,13 +141,8 @@
                                         class="w-6 h-6 font-medium text-red-600 dark:text-red-500 hover:underline">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
-                                    <a th:href="@{/user/contact/updatecontact(
-                                        id=${c.contactId}, 
-                                        name=${c.contactName}, 
-                                        email=${c.contactEmail}, 
-                                        phone=${c.contactPhoneNumber}, 
-                                        address=${c.contactAddress}, 
-                                        favourite=${c.contactFavourite})}"
+                                    <a th:href="@{'/user/contact/updatecontact/'+${c.contactId}}"
+                                     
                                         class="ml-1 w-6 h-6 font-medium text-yellow-600 dark:text-yellow-500 hover:underline">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>

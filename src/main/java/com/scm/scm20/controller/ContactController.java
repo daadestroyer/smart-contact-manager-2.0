@@ -157,8 +157,19 @@ public class ContactController {
         return "user/search";
     }
 
-    @RequestMapping(value = "/updatecon tact", method = RequestMethod.GET)
-    public String updateContact() {
+    @RequestMapping("/updatecontact/{contactId}")
+    public String updateContact(Model model, @PathVariable String contactId) {
+        Contacts contact = contactService.getById(contactId);
+        AddContactFormDto addContactFormDto = new AddContactFormDto();
+        addContactFormDto.setContactName(contact.getContactName());
+        addContactFormDto.setContactEmail(contact.getContactEmail());
+        addContactFormDto.setContactPhoneNumber(contact.getContactPhoneNumber());
+        addContactFormDto.setContactAddress(contact.getContactAddress());
+        addContactFormDto.setContactDescription(contact.getContactDescription());
+        addContactFormDto.setImageUrl(contact.getCloudinaryImagePublicId());
+        addContactFormDto.setFacebookLink(contact.getFacebookLink());
+        addContactFormDto.setWebsiteLink(contact.getWebsiteLink());
+        model.addAttribute("addContactFormDto",addContactFormDto);
         return "user/updatecontact";
     }
 

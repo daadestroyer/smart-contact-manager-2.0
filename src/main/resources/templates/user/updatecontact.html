@@ -5,7 +5,7 @@
 
     <div class="dashboardcontent p-4 sm:ml-64" style="margin-top: 4rem;">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Welcome to dashboard , <span style="color: red;"></span>
+            Welcome to dashboard , <span style="color: red;" th:text="${loggedInUser.name}"></span>
         </h3>
         <h4 class="text-1xl font-semibold mb-4">Current Time :
             <span id="time" class="text-sm text-blue-600"></span>
@@ -16,21 +16,74 @@
                     Update Contacts
                 </h3>
 
-                 
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                    <!-- This is some information about the user. -->
+                </p>
+
+                <!-- Error Toast -->
+                <div style="margin-left: 30%;" th:if="${session.message != null and session.message.type.name == 'red'}"
+                    id="toast-error"
+                    class="flex items-center w-full max-w-xs p-4 text-red-500 bg-white rounded-lg shadow-sm dark:text-red-400 dark:bg-red-800"
+                    role="alert">
+                    <div
+                        class="inline-flex items-center justify-center shrink-0 w-8 h-8 bg-red-100 text-red-500 rounded-lg dark:bg-red-700 dark:text-red-200">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
+                        </svg>
+                    </div>
+                    <div class="ml-3 text-sm font-normal" th:text="${session.message.content}"></div>
+                    <button type="button" onclick="this.parentElement.style.display='none'"
+                        class="ml-auto text-gray-400 bg-white rounded-lg p-1.5 focus:ring-2 focus:ring-gray-300 dark:text-gray-500 dark:hover:text-white dark:bg-red-800 dark:hover:bg-red-700">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 1l6 6m0 0l6 6m-6-6l6-6m-6 6l-6 6" />
+                        </svg>
+                    </button>
+                </div>
+
+                 <!-- Success Toast -->
+                 <div 
+                 style="margin-left: 30%;" th:if="${session.message != null and session.message.type.name == 'green'}"
+                 id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">
+                    <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>
+                        <span class="sr-only">Check icon</span>
+                    </div>
+                    <div class="ms-3 text-sm font-normal">Contact added successfully.</div>
+                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                    </button>
+                </div>
+
+                 <!-- after printing message we are removing message from session, so that when you refresh page it will
+                    not print message again -->
+                <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
                 
-                 
 
             </div>
             <div class="px-4 py-5 ">
 
-                <form th:action="@{/user/contact/process-add-contacts}" method="POST"
-                    class="max-w-2xl mx-auto" enctype="multipart/form-data">
+                <form th:action="@{/user/contact/process-add-contacts}" 
+                      method="POST" 
+                      th:object="${addContactFormDto}"
+                      enctype="multipart/form-data"
+                        class="max-w-2xl mx-auto">
 
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text"  id="contactName"
+                        <input type="text" th:field="*{contactName}" id="contactName"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
-                        
+                        <!-- Error message -->
+                        <p th:if="${#fields.hasErrors('contactName')}" th:errors="*{contactName}"
+                            class="text-red-600 px-1 py-2">
+                        </p>
 
                         <label for="floating_name"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -39,43 +92,55 @@
 
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="email"  id="contactEmail"
+                        <input type="email" th:field="*{contactEmail}" id="contactEmail"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
-                         
+                        <!-- Error message -->
+                        <p th:if="${#fields.hasErrors('contactEmail')}" th:errors="*{contactEmail}"
+                            class="text-red-600 px-1 py-2">
+                        </p>
                         <label for="floating_email"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <span><i class="fa-solid fa-envelope"></i></span> Email</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" id="contactPhoneNumber"
+                        <input type="number" th:field="*{contactPhoneNumber}" id="contactPhoneNumber"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
-                         
+                        <!-- Error message -->
+                        <p th:if="${#fields.hasErrors('contactPhoneNumber')}" th:errors="*{contactPhoneNumber}"
+                            class="text-red-600 px-1 py-2">
+                        </p>
 
                         <label for="floating_number"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <span><i class="fa-solid fa-phone"></i></span> Contact Number</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text"  id="contactAddress"
+                        <input type="text" th:field="*{contactAddress}" id="contactAddress"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
-                         
+                        <!-- Error message -->
+                        <p th:if="${#fields.hasErrors('contactAddress')}" th:errors="*{contactAddress}"
+                            class="text-red-600 px-1 py-2">
+                        </p>
                         <label for="floating_text"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             <span><i class="fa-solid fa-address-book"></i></span> Address</label>
                     </div>
 
                     <div class="relative z-0 w-full mb-5 group">
-                        <textarea  id="contactDescription" rows="4"
+                        <textarea th:field="*{contactDescription}" id="contactDescription" rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter description"></textarea>
-                        
+                        <!-- Error message -->
+                        <p th:if="${#fields.hasErrors('contactDescription')}" th:errors="*{contactDescription}"
+                            class="text-red-600 px-1 py-2">
+                        </p>
                     </div>
 
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" id="facebookLink"
+                        <input type="text" th:field="*{facebookLink}" id="facebookLink"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label for="floating_text"
@@ -83,7 +148,7 @@
                             <span><i class="fa-brands fa-facebook"></i></span> Facebook Link</label>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" id="websiteLink"
+                        <input type="text" th:field="*{websiteLink}" id="websiteLink"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder="" />
                         <label for="floating_text"
@@ -96,13 +161,13 @@
                     <input
                     id="imageFileInput"
                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        type="file" >
+                        type="file" th:field="*{contactPicture}" >
                     
                     <!-- image preview -->
-                    <img src="" id="uploadImagePreview" alt="" class="max-h-52 mx-auto rounded-lg shadow m-3">
+                    <img th:src="*{imageUrl}" id="uploadImagePreview" alt="" class="max-h-52 mx-auto rounded-lg shadow m-3" />
 
                     <div class="flex items-center mt-4 mb-4">
-                        <input  id="default-checkbox" type="checkbox" value=""
+                        <input th:field="*{contactFavourite}" id="default-checkbox" type="checkbox" value=""
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-checkbox"
                             class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Add to favourite
@@ -111,7 +176,7 @@
 
                     <div class="button-container text-center">
                         <button type="submit"
-                            class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+                            class="px-3 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
                             Contact</button>
 
                         <button type="reset"

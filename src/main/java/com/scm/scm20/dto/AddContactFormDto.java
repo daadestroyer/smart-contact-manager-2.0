@@ -42,4 +42,6 @@ public class AddContactFormDto {
     @CreationTimestamp
     @Column(name = "created_date", updatable = true, nullable = false)
     private LocalDateTime createdDate;
+
+    private String imageUrl;
 }

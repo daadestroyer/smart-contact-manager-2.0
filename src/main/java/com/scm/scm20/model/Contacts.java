@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
+@Getter
+@Setter
 public class Contacts {
     @Id
     @Column(name = "contact_id", nullable = false)
@@ -31,11 +33,11 @@ public class Contacts {
     private String contactAddress;
     // Storing the image as a byte array
     private String cloudinaryImagePublicId;
-    @Column(name = "contact_description", nullable = false,length = 10000)
+    @Column(name = "contact_description", nullable = false, length = 10000)
     private String contactDescription;
 
     @Column(name = "contact_favourite")
-    private String contactFavourite;
+    private boolean contactFavourite;
 
     private String websiteLink;
     private String facebookLink;
@@ -51,4 +53,6 @@ public class Contacts {
     @CreationTimestamp
     @Column(name = "created_date", updatable = true, nullable = false)
     private LocalDateTime createdDate;
+
+
 }
