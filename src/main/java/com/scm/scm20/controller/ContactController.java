@@ -169,6 +169,7 @@ public class ContactController {
         addContactFormDto.setImageUrl(contact.getCloudinaryImagePublicId());
         addContactFormDto.setFacebookLink(contact.getFacebookLink());
         addContactFormDto.setWebsiteLink(contact.getWebsiteLink());
+        addContactFormDto.setContactFavourite(contact.isContactFavourite());
         model.addAttribute("addContactFormDto",addContactFormDto);
         return "user/updatecontact";
     }
