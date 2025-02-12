@@ -18,4 +18,5 @@ public interface UserService {
     List<User> getAllUser();
     User findByEmailAndPassword(String email,String password);
 
+    User findByEmailToken(String emailToken);
 }

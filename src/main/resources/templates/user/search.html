@@ -38,42 +38,49 @@
             <div class="contacts-container p-2 ">
                 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <form th:object="${contactSearchForm}" th:action="@{/user/contact/search}">
-                    <!-- action button and search bar start -->
-                    <div class="flex items-center space-x-2 pb-4 bg-white dark:bg-gray-900">
-                        
-                        <!-- Action Button with Dropdown -->
-                        <div class="relative">
-                            <select id="field" th:field="*{field}" class="block w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" disabled selected>Select an option</option>
-                                <option value="contactName">Name</option>
-                                <option value="contactEmail">Email</option>
-                                <option value="contactPhoneNumber">Phone</option>
-                            </select>
-                        </div>
-                        <!-- Search Bar + Search Button -->
-                        <div class="flex items-center space-x-2">
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
+                    <div>
+                        <form th:object="${contactSearchForm}" th:action="@{/user/contact/search}">
+                            <!-- action button and search bar start -->
+                            <div class="flex items-center space-x-2 pb-4 bg-white dark:bg-gray-900">
+                                
+                                <!-- Action Button with Dropdown -->
+                                <div class="relative">
+                                    <select id="field" th:field="*{field}" class="block w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="" disabled selected>Select an option</option>
+                                        <option value="contactName">Name</option>
+                                        <option value="contactEmail">Email</option>
+                                        <option value="contactPhoneNumber">Phone</option>
+                                    </select>
                                 </div>
-                                <input id="value" th:field="*{value}" type="text" 
-                                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search for users" />
+                                <!-- Search Bar + Search Button -->
+                                <div class="flex items-center space-x-2">
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                            </svg>
+                                        </div>
+                                        <input id="value" th:field="*{value}" type="text" 
+                                            class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Search for users" />
+                                    </div>
+                            
+                                    <!-- Search Button -->
+                                    <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
+                                        Search
+                                    </button>
+                                     <!-- Export data into excel -->
+                                    <button th:if="${contactsPage!= null and contactsPage.getContent().size()>0}" type="button" th:onclick="exportData()"
+                                        class="px-4 py-2 text-white bg-yellow-400 rounded-lg hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 focus:outline-none">
+                                        Export Data
+                                    </button>
+                                </div>
                             </div>
-                    
-                            <!-- Search Button -->
-                            <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
-                                Search
-                            </button>
-                        </div>
+                            <!-- action button and search bar end -->
+                        </form>
                     </div>
-                    <!-- action button and search bar end -->
-                </form>
                 
                     <table th:unless="${pageContact.isEmpty()}" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-400 dark:text-gray-400">

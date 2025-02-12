@@ -93,6 +93,8 @@ public class PageController {
         User user = modelMapper.map(signupFormDto, User.class);
 
         try {
+            // set user enabled to false
+            user.setEnabled(false);
             // Save the user
             userService.saveUser(user);
 

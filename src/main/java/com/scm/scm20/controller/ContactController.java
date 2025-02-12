@@ -120,7 +120,6 @@ public class ContactController {
         Pageable pageable = PageRequest.of(currentPage, size);
 
         Page<Contacts> contactsPage = contactService.getByUserId(user.getUserId(), pageable);
-
         model.addAttribute("contacts", contactsPage.getContent());
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", contactsPage.getTotalPages());

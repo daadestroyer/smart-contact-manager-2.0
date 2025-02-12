@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: parent(~{::.content},~{::title})}">
+
+<head>
+    <title>Status Page | Smart Contact Manager 2.0</title>
+</head>
+
+<body>
+    <section class="bg-white dark:bg-gray-900 content flex justify-center" style="margin-top: 10em;">
+        <!-- Error Toast -->
+        <div th:if="${session.message != null and session.message.type.name == 'red'}"
+            class="max-w-sm w-full text-center p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert">
+            <span class="font-medium" th:text="${session.message.content}"></span>
+        </div>
+
+        <!-- Success Toast -->
+        <div th:if="${session.message != null and session.message.type.name == 'green'}"
+            class="max-w-sm w-full text-center p-4 text-sm text-green-900 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert">
+            <span class="font-medium" th:text="${session.message.content}"></span>
+            
+            <div>
+                <a th:href="@{/public/login}" class="bg-gray-900 mt-2 text-white px-3 py-2 rounded inline-block text-center">
+                    Procced with login
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

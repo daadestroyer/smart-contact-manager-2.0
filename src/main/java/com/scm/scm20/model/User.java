@@ -45,7 +45,9 @@ public class User implements UserDetails {
     private List<String> role = new ArrayList<>();
 
     // information
-    private boolean enabled = true;
+    private boolean enabled = false;
+
+    private String emailToken;
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
@@ -81,5 +83,9 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    public boolean isEnabled(){
+        return this.enabled;
     }
 }
