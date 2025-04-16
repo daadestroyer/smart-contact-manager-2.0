@@ -42,7 +42,7 @@ public class User implements UserDetails {
     private String contact;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> role = new ArrayList<>();
+    private List<String> role = new ArrayList<>(); // Stores the list in a separate table
 
     // information
     private boolean enabled = false;

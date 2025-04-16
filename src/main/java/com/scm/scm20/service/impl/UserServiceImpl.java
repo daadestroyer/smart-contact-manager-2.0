@@ -25,6 +25,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailService emailService;
 
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        return this
+                .userRepo
+                .findByEmailAndPassword(email, password)
+                .orElseThrow(
+                        () -> new UserNotFoundException("User with email " + email + " and password " + password + " not found"));
+    }
+
     private String PHOTO_URL = "https://img.icons8.com/?size=100&id=21441&format=png&color=000000";
 
     @Override
@@ -79,14 +88,7 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.findAll();
     }
 
-    @Override
-    public User findByEmailAndPassword(String email, String password) {
-        return this
-                .userRepo
-                .findByEmailAndPassword(email, password)
-                .orElseThrow(
-                        () -> new UserNotFoundException("User with email " + email + " and password " + password + " not found"));
-    }
+
 
     @Override
     public User findByEmailToken(String emailToken) {
